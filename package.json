@@ -3,7 +3,7 @@
   "displayName": "Utility Widget",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lifeforge-app/lifeforge-module-localIpWidget.git"
+    "url": "https://github.com/Lifeforge-app/lifeforge-module-local-ip-widget.git"
   },
   "version": "0.0.1",
   "type": "module",
