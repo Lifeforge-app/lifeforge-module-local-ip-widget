@@ -5,7 +5,9 @@ import type { WidgetConfig } from '@lifeforge/configs'
 import {
   Box,
   Card,
+  Flex,
   Icon,
+  Scrollbar,
   Text,
   WithQuery,
   colorWithOpacity,
@@ -59,34 +61,40 @@ export default function Quotes() {
           size="6em"
         />
       </Box>
-      <WithQuery query={quoteQuery} showRetryButton={false}>
-        {quote => (
-          <Text
-            align="center"
-            as="p"
-            color={tinycolor(themeColor).isLight() ? 'bg-800' : 'bg-100'}
-            size={{ base: 'lg', sm: 'xl' }}
-          >
-            {quote?.length ? (
-              <>
-                {quote[0].q}
-                <br />
-                <Text
-                  as="div"
-                  color={colorWithOpacity('bg-800', '50%')}
-                  mt="md"
-                  size="base"
-                  weight="medium"
-                >
-                  - {quote[0].a}
-                </Text>
-              </>
-            ) : (
-              <Text align="center">No quote for today :(</Text>
-            )}
-          </Text>
-        )}
-      </WithQuery>
+      <Scrollbar>
+        <WithQuery query={quoteQuery} showRetryButton={false}>
+          {quote => (
+            <Flex align="center" direction="column" height="100%" justify="center">
+              <Text
+                align="center"
+                as="p"
+                color={
+                  tinycolor(themeColor).isLight() ? 'bg-800' : 'bg-100'
+                }
+                size={{ base: 'lg', sm: 'xl' }}
+              >
+                {quote?.length ? (
+                  <>
+                    {quote[0].q}
+                    <br />
+                    <Text
+                      as="div"
+                      color={colorWithOpacity('bg-800', '50%')}
+                      mt="md"
+                      size="base"
+                      weight="medium"
+                    >
+                      - {quote[0].a}
+                    </Text>
+                  </>
+                ) : (
+                  <Text align="center">No quote for today :(</Text>
+                )}
+              </Text>
+            </Flex>
+          )}
+        </WithQuery>
+      </Scrollbar>
     </Card>
   )
 }
