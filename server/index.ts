@@ -4,6 +4,7 @@ import z from 'zod'
 import { forgeRouter, writeContractFileToClient } from '@lifeforge/server-utils'
 
 import forge from './forge'
+import * as quotesRoutes from './routes/quotes'
 
 const getLocalIp = forge
   .query({
@@ -30,7 +31,7 @@ const getLocalIp = forge
     return response.ok({ addresses })
   })
 
-const routes = forgeRouter({ getLocalIp })
+const routes = forgeRouter({ getLocalIp, quotes: quotesRoutes })
 
 writeContractFileToClient(routes, import.meta.dirname)
 

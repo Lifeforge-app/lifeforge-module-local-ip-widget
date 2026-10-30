@@ -17,14 +17,7 @@ import {
 import { forgeAPI } from '@/manifest'
 
 export default function Quotes() {
-  const quoteQuery = useQuery<{ q: string; a: string }[]>(
-    forgeAPI
-      .corsAnywhere({
-        url: 'https://zenquotes.io/api/random'
-      })
-      .queryOptions() as never
-  )
-
+  const quoteQuery = useQuery(forgeAPI.quotes.random.queryOptions())
   const { derivedThemeColor: themeColor } = usePersonalization()
 
   return (
@@ -64,19 +57,21 @@ export default function Quotes() {
       <Scrollbar>
         <WithQuery query={quoteQuery} showRetryButton={false}>
           {quote => (
-            <Flex align="center" direction="column" height="100%" justify="center">
+            <Flex
+              align="center"
+              direction="column"
+              height="100%"
+              justify="center"
+            >
               <Text
                 align="center"
                 as="p"
-                color={
-                  tinycolor(themeColor).isLight() ? 'bg-800' : 'bg-100'
-                }
+                color={tinycolor(themeColor).isLight() ? 'bg-800' : 'bg-100'}
                 size={{ base: 'lg', sm: 'xl' }}
               >
-                {quote?.length ? (
+                {quote.length ? (
                   <>
-                    {quote[0].q}
-                    <br />
+                    {quote[0]!.q}
                     <Text
                       as="div"
                       color={colorWithOpacity('bg-800', '50%')}
@@ -84,7 +79,19 @@ export default function Quotes() {
                       size="base"
                       weight="medium"
                     >
-                      - {quote[0].a}
+                      - {quote[0]!.a}
+                    </Text>
+                    <Text
+                      as="a"
+                      color="muted"
+                      display="block"
+                      href={quote[0]!.url}
+                      mt="sm"
+                      rel="noreferrer"
+                      size="xs"
+                      target="_blank"
+                    >
+                      QuotesCharm
                     </Text>
                   </>
                 ) : (
